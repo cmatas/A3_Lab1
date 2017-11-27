@@ -2,14 +2,14 @@
   // start with retrieving the elements from the page, and then adding event handling. then write the logic. refer to the seasons example / homework
   console.log("help");
 var theImages = document.querySelectorAll('.data-ref'),
-    selectImg = ["#F55","#F56","#R58"];
+    selectImg = ["#F55","#F56","#R58"],
     ModelTxt = document.querySelector('.modelName'),
     detailsTxt = document.querySelector('.modelDetails'),
-    carPrice = document.querySelector('.priceInfo'),
+    carPrice = document.querySelector('.priceInfo');
 
     // i want to change all the content on the page
     function changeElements() {
-      console.log("lol");
+      console.log("Car Info");
 
       for (var i=0;i<theImages.length;i+=1) {
         theImages[i].classList.add("nonActive");
@@ -30,10 +30,11 @@ var theImages = document.querySelectorAll('.data-ref'),
           // theImage.
         }
 
-        changeElements.call(document.querySelector("#F55"));
-
         for (var i=0;i<theImages.length;i+=1) {
           theImages[i].addEventListener("click", changeElements, false);
         }
+
+        changeElements.call(document.querySelector("#F55"));
+
 
 })();
