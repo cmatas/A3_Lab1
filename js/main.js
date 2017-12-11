@@ -12,21 +12,31 @@ var theImages = document.querySelectorAll('.data-ref'),
 
 
     function getcarData() {
-      // make an AJAX call to the DB; handle errors first
-      if (!httpRequest) {
-        alert('giving up... your browser sucks');
-        return false;
-      }
+      const url = './includes/functions.php?carModel=' + this.id;
 
-      httpRequest.onreadystatechange = processRequest;
-      httpRequest.open('GET', './includes/functions.php?carModel=' + this.id);
-      httpRequest.send();
+      // the fecth API uses new JS Promise API
+      fetch(url)  // do an ajax call with fetch
+        .then((resp) => resp.json()) // convert to json
+        .then((data) => {processResult(data); }) // call the process functions
+        .catch(function(error) {
+          console.log(error);
+        });
+
+      // make an AJAX call to the DB; handle errors first
+      // if (!httpRequest) {
+      //   alert('giving up... your browser sucks');
+      //   return false;
+      // }
+      //
+      // httpRequest.onreadystatechange = processRequest;
+      // httpRequest.open('GET', './includes/functions.php?carModel=' + this.id);
+      // httpRequest.send();
     }
 
     function processRequest() {
     let reqIndicator = document.querySelector('.request-state');
     reqIndicator.textContent = httpRequest.readyState;
-    debugger;
+    // debugger;
 
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
       if (httpRequest.status === 200) { // 200 means everything is awesome
@@ -41,20 +51,20 @@ var theImages = document.querySelectorAll('.data-ref'),
   }
 
     // i want to change all the content on the page
-    function processResult(data) {
-      const {modelName, pricing, modelDetails} = data;
-      ModelTxt.textContent = modelName;
-      carPrice.innerHTML = pricing;
-      detailsTxt.textContent = modelDetails;
-
-      console.log("Car Info");
-
-      for (var i=0;i<theImages.length;i+=1) {
-        theImages[i].classList.add("nonActive");
-      }
-
-      // this is a template string constructor - look it up! (also new for ES6)
-      document.querySelector(`#${data.model}`).classList.remove('nonActive');
+    // function processResult(data) {
+    //   const {modelName, pricing, modelDetails} = data;
+    //   ModelTxt.textContent = modelName;
+    //   carPrice.innerHTML = pricing;
+    //   detailsTxt.textContent = modelDetails;
+    //
+    //   console.log("Car Info");
+    //
+    //   for (var i=0;i<theImages.length;i+=1) {
+    //     theImages[i].classList.add("nonActive");
+    //   }
+    //
+    //   // this is a template string constructor - look it up! (also new for ES6)
+    //   document.querySelector(`#${data.model}`).classList.remove('nonActive');
 
       // this.classList.remove("nonActive");
 
