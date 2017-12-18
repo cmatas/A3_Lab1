@@ -35,7 +35,7 @@ var theImages = document.querySelectorAll('.data-ref'),
         }) // call the process functions (so it can be car because its about cars)
         .catch(function(error) {
           // will catch absolutely any error and report it to the console
-          console.log(error);
+          // console.log(error);
         });
 
       // make an AJAX call to the DB; handle errors first
